@@ -2,7 +2,7 @@ library(readr)
 library(stringr)
 library(dplyr)
 
-ballot <- read_csv("~/OneDrive - The Pennsylvania State University/Diss Proposal/P2_Data/ballotpedia_data_2021-2022_Nakka,_Nitheesha.csv")
+ballot <- read_csv("bp_data.csv")
 
 ############################ SUBSET DATA
 
@@ -133,7 +133,7 @@ saveRDS(data4.2, "draft_final.rds")
 #data4 <- merge(data3, cand, by.x = "Candidate_name", by.y = "Campaign Twitter", all.x = T)
 
 ############################ Prep final dataset: Remove NAs
-draft_final <- readRDS("~/OneDrive - The Pennsylvania State University/Diss Proposal/P2_Data/data/draft_final.rds")
+draft_final <- readRDS("~/draft_final.rds")
 
 #drop empty cand_handle2
 draft2 = subset(draft_final, select = -c(Cand_handle2))
@@ -149,7 +149,7 @@ draft4[draft4 == "AA"] <- "Asian American"
 names(draft4)[names(draft4) == 'Name'] <- 'Candidate_name'
 
 ############################ Prep final dataset: Add Controls
-controls <- read_excel("~/Documents/Backup_OD/PLSC 541/paper/data/final_data2.xlsx")
+controls <- read_excel("~/final_data2.xlsx")
 
 # change  state full names to state abbreviations
 controls$state[controls$state == "New Mexico"] <- "NM"
@@ -182,8 +182,8 @@ saveRDS(draft5, "final_data.rds")
 #329 before removing Nas in line 142
 
 ############################ Prep final dataset: Add Candidate Chamber
-data5 <- readRDS("~/OneDrive - The Pennsylvania State University/Diss Proposal/P2_Data/data/final_data.rds")
-Twitter_10_ballot <- readRDS("~/OneDrive - The Pennsylvania State University/Diss Proposal/P2_Data/data/Twitter_10_ballot.rds")
+data5 <- readRDS("~final_data.rds")
+Twitter_10_ballot <- readRDS("~Twitter_10_ballot.rds")
 
 cand<- Twitter_10_ballot[, c("Name", "District type")]
 cand <- unique(cand)
