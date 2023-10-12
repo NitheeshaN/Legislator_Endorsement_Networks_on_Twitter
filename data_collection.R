@@ -6,11 +6,11 @@ library(tidyr)
 #access relational database
 con <- DBI::dbConnect(
   RPostgres::Postgres(),
-  dbname = "tweets",
-  host = "dapr.psu.edu",
-  port = 5432,
-  user = "api",
-  password = "d@pru53r"
+  dbname = "",
+  host = "",
+  port = ,
+  user = "",
+  password = ""
 )
 
 ##################### Collect Data of Candidate endorsements
@@ -25,7 +25,7 @@ handle_or <- paste(" OR created_date BETWEEN '2021-01-01' AND '2022-12-31' AND t
 
 handle_or <- paste(handle_or, collapse = "")
 
-query <- paste("SELECT * FROM legislator_tweets WHERE created_date BETWEEN '2021-01-01' AND '2022-12-31' AND text LIKE '%@AndresRomeroNM%'", handle_or, ";", sep  = "")
+query <- paste("SELECT * FROM "Data Table Name" WHERE created_date BETWEEN '2021-01-01' AND '2022-12-31' AND text LIKE '%@AndresRomeroNM%'", handle_or, ";", sep  = "")
 
 #run 
 twts_endo <- dbGetQuery(con,query)
@@ -34,7 +34,7 @@ twts_endo <- dbGetQuery(con,query)
 saveRDS(twts_endo, "twts_endo.rds")
 
 ##################### Revise Data: pull legislator usernames
-twts_endo <- readRDS("~/OneDrive - The Pennsylvania State University/Diss Proposal/P2_Data/data/twts_endo.rds")
+twts_endo <- readRDS("~/twts_endo.rds")
 
 author_id <- twts_endo %>%
   select(user_username, author_id)
@@ -45,7 +45,7 @@ author_ids <- c(author_id$author_id)
 query_or <- paste(" OR legislator_data.author_id2 LIKE ", "'", author_ids, "'", sep = "")
 query_or <- paste(query_or, collapse = "")
 
-query <- paste("SELECT * FROM legislator_data WHERE legislator_data.author_id2 LIKE '180677205'", query_or, ";", sep  = "")
+query <- paste("SELECT * FROM "Data Table Name" WHERE legislator_data.author_id2 LIKE '180677205'", query_or, ";", sep  = "")
 
 user_ids2 <- dbGetQuery(con,query)
 
@@ -53,7 +53,7 @@ user_ids2 <- dbGetQuery(con,query)
 query_or <- paste(" OR legislator_data.author_id1 LIKE ", "'", author_ids, "'", sep = "")
 query_or <- paste(query_or, collapse = "")
 
-query <- paste("SELECT * FROM legislator_data WHERE legislator_data.author_id1 LIKE '180677205'", query_or, ";", sep  = "")
+query <- paste("SELECT * FROM "Data Table Name" WHERE legislator_data.author_id1 LIKE '180677205'", query_or, ";", sep  = "")
 
 user_ids1 <- dbGetQuery(con,query)
 
